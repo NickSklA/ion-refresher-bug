@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab2',
@@ -7,6 +8,23 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  constructor(
+      private toastController: ToastController
+  ) {}
 
+  refresh(event) {
+    setTimeout(() => {
+      console.log('Refresh completed');
+      this.presentToast();
+      event.target.complete();
+    }, 4000);
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Refresh completed!',
+      duration: 2000
+    });
+    toast.present();
+  }
 }
